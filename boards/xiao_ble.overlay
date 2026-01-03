@@ -1,0 +1,66 @@
+/*
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/ {
+	aliases {
+		uart-mmwave = &uart0;
+		ldo-enable = &ldo_enable;
+	};
+
+	xiao_battery: xiao_battery {
+		compatible = "xiao-battery";
+		charging-gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
+		read-sink-gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
+		charge-speed-gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
+		io-channels = <&adc 0>;
+	};
+
+	sensor_interrupt {
+		compatible = "gpio-keys";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		interrupt_pin: interrupt_pin {
+			label = "Sensor Interrupt";
+			gpios = <&xiao_d 3 GPIO_ACTIVE_HIGH>;
+		};
+	};
+
+	gpio_outputs {
+		compatible = "gpio-leds";
+		ldo_enable: ldo_enable {
+			label = "LDO Enable";
+			gpios = <&xiao_d 2 GPIO_ACTIVE_HIGH>;
+		};
+	};
+};
+
+&adc {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+
+	channel@0 {
+		reg = <0>;
+		zephyr,gain = "ADC_GAIN_1_6";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+		zephyr,input-positive = <NRF_SAADC_AIN7>;
+		zephyr,resolution = <12>;
+	};
+};
+
+/* This uses gpio0 17 by default, which is the charging GPIO */
+&pwm0 {
+	status = "disabled";
+};
+
+&i2c1 {
+	status = "disabled";
+};
+
+&spi2 {
+	status = "disabled";
+};

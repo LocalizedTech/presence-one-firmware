@@ -1,0 +1,28 @@
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+description: Binding for Xiao board battery management
+
+compatible: "xiao-battery"
+
+properties:
+  charging-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO used to check if the battery is charging
+
+  read-sink-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO used to sink the battery voltage to not fry the ADC read pin, should always be low
+
+  charge-speed-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO used to select the charging speed (high = 100mA, low = 50mA)
+
+  io-channels:
+    type: phandle-array
+    required: true
+    description: IO channel used for ADC reading of the battery voltage.
