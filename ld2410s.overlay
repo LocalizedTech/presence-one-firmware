@@ -1,0 +1,13 @@
+/ {
+	sensor_interrupt {
+		compatible = "gpio-keys";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+
+		interrupt_pin: interrupt_pin {
+			label = "Sensor Interrupt";
+			gpios = <&xiao_d 3 GPIO_ACTIVE_HIGH>;
+		};
+	};
+};

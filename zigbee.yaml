@@ -1,0 +1,52 @@
+nrf52:
+  board: xiao_ble
+
+external_components:
+  - source:
+      type: local
+      path: external_components
+    components: [ld2410s]
+  - source: github://pr#13950
+    components: [deep_sleep, zephyr, zigbee]
+    refresh: never
+
+ld2410s:
+
+esphome:
+  name: presence-one
+  includes:
+    - external_components/ld2410s/ld2410s.h
+
+logger:
+  level: DEBUG
+
+zigbee:
+  id: xiao_zigbee
+  on_join:
+    then:
+      - logger.log: "Joined network"
+  power_source: battery
+  wipe_on_boot: once
+  sleepy: true
+
+deep_sleep:
+  run_duration: 20s
+  sleep_duration: 10s
+
+binary_sensor:
+  - platform: template
+    name: "Occupancy"
+
+switch:
+  - platform: template
+    name: "Auto Threshold"
+    icon: "mdi:restart"
+    optimistic: true
+    on_turn_on:
+      - logger.log: "AUTO ON"
+  - platform: template
+    name: "Power"
+    icon: "mdi:restart"
+    optimistic: true
+    on_turn_on:
+      - logger.log: "POWER ON"
