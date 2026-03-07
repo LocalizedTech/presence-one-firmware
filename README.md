@@ -1,5 +1,5 @@
-# Presence One Firmware
-This is the firmware for Presence One, an open-source mmWave presence sensor using Matter over Thread.
+# Sentinel Firmware
+This is the firmware for Sentinel, an open-source mmWave presence sensor using Matter over Thread.
 
 ## Prerequisites
 
@@ -10,8 +10,8 @@ Use `west` to set up the workspace, don't clone this repo manually unless you kn
 
 ```
 nrfutil sdk-manager toolchain launch --ncs-version v3.2.1 --shell
-west init -m git@github.com:LocalizedTech/presence-one-firmware.git presence-one
-cd presence-one
+west init -m git@github.com:LocalizedTech/sentinel-firmware.git sentinel-firmware
+cd sentinel-firmware
 west update
 west build --no-sysbuild -b xiao_ble application
 ```
@@ -19,7 +19,7 @@ west build --no-sysbuild -b xiao_ble application
 This will create a workspace with the following structure:
 
 ```
-presence-one/
+sentinel-firmware/
   .west/        -- West workspace
   application/  -- This repo
   external/     -- Zephyr and nRF Connect SDK
@@ -28,7 +28,7 @@ presence-one/
 
 ## Flashing
 
-1. Connect the Presence One to your PC using a USB-C cable
+1. Connect Sentinel to your PC using a USB-C cable
 2. Double-click the reset button
 3. Your PC should detect a USB drive named "XIAO-SENSE"
 4. Copy and paste `build/zephyr/zephyr.uf2` to this drive
